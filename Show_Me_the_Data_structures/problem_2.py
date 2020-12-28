@@ -19,6 +19,11 @@ def find_files(suffix, path):
     """
     try:
         result = list()
+        if os.path.isfile(path):
+            if path.endswith(suffix):
+                return [path]
+            else:
+                return result
         for file in os.listdir(path):
             if file.endswith(suffix):
                 result.extend([os.path.join(path, file)])

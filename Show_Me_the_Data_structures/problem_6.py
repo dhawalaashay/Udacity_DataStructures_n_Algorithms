@@ -45,7 +45,7 @@ class LinkedList:
         node = self.head
         if node is None:
             return value_set
-        while node.next is not None:
+        while node:
             value_set.add(node.value)
             node = node.next
         return value_set
@@ -87,7 +87,7 @@ if __name__ == "__main__":
 
     # expected : 32 -> 65 -> 2 -> 35 -> 3 -> 4 -> 6 -> 1 -> 9 -> 11 -> 21
     print("union",union(linked_list_1, linked_list_2))
-    # expected : 4 -> 6
+    # expected : 4 -> 6 -> 21
     print("intersection", intersection(linked_list_1, linked_list_2))
     print("\n***********************************************\n")
 
@@ -137,7 +137,7 @@ if __name__ == "__main__":
     for i in element_8:
         linked_list_6.append(i)
 
-    # expected : 2
+    # expected : None
     print("union", union(linked_list_7, linked_list_8))
-    # expected : 2
+    # expected : None
     print("intersection", intersection(linked_list_7, linked_list_8))

@@ -1,7 +1,11 @@
 class LRUCache:
     def __init__(self, maxSize):
         self.cache = dict()
-        self.maxSize = maxSize or 1
+        self.maxSize = maxSize
+        #self.maxSize = maxSize or 1
+        print(f"cache size set to - {maxSize}")
+        if self.maxSize < 1:
+            raise Exception("no data can be added to cache, as it's size is set to 0")
         self.currentSize = 0
         self.listOfMostRecent = DoublyLinkedList()
 
@@ -141,3 +145,10 @@ if __name__ == "__main__":
     print(our_cache.getValueFromKey(30))
     print(our_cache.getValueFromKey(31))
     print(our_cache.getValueFromKey(35))
+    print("\n***********************************************\n")
+
+    # testcase 4 , size of the cache is set to 0
+    minsize = 0
+    new_cache = LRUCache(minsize)
+    new_cache.insertKeyValuePair(1, 1)
+    print(new_cache.getValueFromKey(1))

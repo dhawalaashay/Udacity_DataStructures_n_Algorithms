@@ -2,13 +2,19 @@ The following is an explanation of "Huffman Coding" implemented(priority queue) 
 
 1)  To determine the frequency of each character in the given string, would take O(n), n being the length of the string
 
-2)  Popping out an element which has the minimum value, after sorting(O(log(n))) will be O(1), therefore net time complexity - O(log(n)) | O(n) space,rearrange the queue after deleting first element.
+2)  Traversal from root to a node with a specific value would take - O(log(n)) time  
+    The while loop  used in building the huffman tree. This by itself has a complexity of O(N) then inside the loop, the priorityq.delete() method is used. 
 
-3)  Traversal from root to a node with a specific value would take - O(log(n)) time
 
-Total time complexity would be nlog(n), where n is the number of unique characters
-
-Conclusion:
-
-For every encoded symbol we have to traverse the tree in order to decode that symbol. If the tree contains k nodes and, on average, it takes O(log k) node visits to decode a symbol. So the time complexity would be O(n log k).
-Space complexity is O(k) for the tree and O(n) for the decoded text.
+  # for popping an element based on Priority
+    def delete(self):
+        try:
+            self.queue.sort()
+            item = self.queue[0]
+            del self.queue[0]
+            return item
+        except IndexError:
+            print()
+            exit()
+  In this method, an in-built pyhton method (sort()) is used. This method has a time complexity of O(N(Log(n))). Hence, the overall time complexity is O(N(Log(n))) * O(N)
+  
