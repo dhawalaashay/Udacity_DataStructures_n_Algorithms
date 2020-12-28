@@ -72,6 +72,7 @@ def path_from_root_to_node(root, data):
     :return: list of nodes traveresed from a specific node with data = data to the root
     """
     output = path_from_node_to_root(root, data)
+    print("output", output)
     output = "".join([str(item) for item in output if item is not None])
     return output[::-1]
 
@@ -89,6 +90,8 @@ def go_left(node):
 
 
 def huffman_encoding(data, priorityq):
+    if data == "":
+        print("no data to be encoded")
     freequency_table = dict()
 
     for item in data:
@@ -101,22 +104,28 @@ def huffman_encoding(data, priorityq):
         node = Node(char)
         node.count = freequency_table[char]
         priorityq.insert(node)
-
-    while priorityq.length() > 1:
+    if priorityq.length() > 1:
+        while priorityq.length() > 1:
+            first_node = priorityq.delete()
+            first_node.bit = 0
+            second_node = priorityq.delete()
+            second_node.bit = 1
+            value = first_node.count + second_node.count
+            new_node = Node(value)
+            new_node.count = value
+            new_node.left = first_node
+            new_node.right = second_node
+            priorityq.insert(new_node)
+    elif priorityq.length() == 1:
         first_node = priorityq.delete()
         first_node.bit = 0
-        second_node = priorityq.delete()
-        second_node.bit = 1
-        value = first_node.count + second_node.count
-        new_node = Node(value)
-        new_node.count = value
-        new_node.left = first_node
-        new_node.right = second_node
-        priorityq.insert(new_node)
+        priorityq.insert(first_node)
+    else:
+        priorityq.insert(None)
 
     for char in freequency_table:
         freequency_table[char] = (freequency_table[char], path_from_root_to_node(priorityq.queue[0], char))
-    print(freequency_table)
+
 
     encoded_data = ""
     for char in data:
@@ -126,13 +135,26 @@ def huffman_encoding(data, priorityq):
 
 
 def huffman_decoding(root, s):
+    if root is None:
+        print("no data to be decoded")
+        return ""
     result = []
     node = root
     for char in s:
         if char == '1':
-            node = go_right(node)
+            # incase of data having single repeated characters and root node's bit set to 1
+            if node.right is None and is_last(node):
+                result.append(node.char)
+                continue
+            else:
+                node = go_right(node)
         elif char == '0':
-            node = go_left(node)
+            # incase of data having single repeated characters and root node's bit set to 0
+            if node.left is None and is_last(node):
+                result.append(node.char)
+                continue
+            else:
+                node = go_left(node)
 
         if is_last(node):
             result.append(node.char)
@@ -142,6 +164,8 @@ def huffman_decoding(root, s):
 
 
 if __name__ == '__main__':
+
+    # testcase 1
     a_great_sentence = "The bird is the word"
     priorityq = PriorityQueue()
 
@@ -154,3 +178,30 @@ if __name__ == '__main__':
     print("The size of the decoded data is: {}\n".format(sys.getsizeof(decoded_data)))
     print("The content of the decoded data is: {}\n".format(decoded_data))
     print(decoded_data == a_great_sentence)
+    print("\n***********************************************\n")
+
+    # testcase 2, data with same repeated characters
+    a_great_sentence = "aaaaaaaaaaaaaaaaaaa"
+    priorityq = PriorityQueue()
+
+    encoded_data = huffman_encoding(a_great_sentence, priorityq)
+    print("The content of the encoded data is: {}\n".format(encoded_data))
+
+    decoded_data = huffman_decoding(priorityq.queue[0], encoded_data)
+
+    print("The content of the decoded data is: {}\n".format(decoded_data))
+    print(decoded_data == a_great_sentence)
+    print("\n***********************************************\n")
+
+    # testcase 3, with empty data
+    a_great_sentence = ""
+    priorityq = PriorityQueue()
+
+    encoded_data = huffman_encoding(a_great_sentence, priorityq)
+    print("The content of the encoded data is: {}\n".format(encoded_data))
+
+    decoded_data = huffman_decoding(priorityq.queue[0], encoded_data)
+
+    print("The content of the decoded data is: {}\n".format(decoded_data))
+    print(decoded_data == a_great_sentence)
+    print("\n***********************************************\n")

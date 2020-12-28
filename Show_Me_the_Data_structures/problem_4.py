@@ -37,6 +37,7 @@ def is_user_in_group(user, group):
 
 
 if __name__ == "__main__":
+    # testcase 1
     parent = Group("parent")
     child = Group("child")
     sub_child = Group("subchild")
@@ -56,3 +57,27 @@ if __name__ == "__main__":
     parent.add_user(child_user)
     print(parent.get_users())
     print(is_user_in_group("child_user", parent))
+    print("\n***********************************************\n")
+
+    #testcase 2
+
+    parent = Group("parent")
+    child = Group("child")
+    child_user = "child_user"
+    # checking if child user is a user in the parent before adding
+    print(is_user_in_group("child_user", parent))
+    parent.add_user(child_user)
+    # user added again
+    print(is_user_in_group("child_user", parent))
+
+    print("\n***********************************************\n")
+
+    #testcase 3
+    parent = Group("parent")
+    parent_user = "parent_user"
+    child = Group("child")
+    child_user = "child_user"
+    # child user added parent group
+    parent.add_user(child_user)
+    # child user without being added to child group, negative scenario
+    print(is_user_in_group(child_user, child))

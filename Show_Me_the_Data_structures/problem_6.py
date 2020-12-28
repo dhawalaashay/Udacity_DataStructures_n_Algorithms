@@ -123,3 +123,21 @@ if __name__ == "__main__":
     print("union", union(linked_list_5, linked_list_6))
     # expected : 2
     print("intersection", intersection(linked_list_5, linked_list_6))
+
+    print("\n***********************************************\n")
+
+    print("testcase 4 ----->")
+    linked_list_7 = LinkedList()
+    linked_list_8 = LinkedList()
+    element_7 = []
+    for i in element_7:
+        linked_list_5.append(i)
+
+    element_8 = []
+    for i in element_8:
+        linked_list_6.append(i)
+
+    # expected : 2
+    print("union", union(linked_list_7, linked_list_8))
+    # expected : 2
+    print("intersection", intersection(linked_list_7, linked_list_8))

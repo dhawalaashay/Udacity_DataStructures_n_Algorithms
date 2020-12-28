@@ -33,15 +33,20 @@ def find_files(suffix, path):
 
 
 if __name__ == "__main__":
+    # testcase1
     file_path = "/Users/adhawal/my_experiments/Udacity/DataStructureNAlgorithem/Data Structure & Algorithm/testdir"
     results = find_files('.c', file_path)
     print(results)
+    print("\n***********************************************\n")
 
-    """
-    output retrieved:
-    
-    ['/Users/adhawal/my_experiments/Udacity/DataStructureNAlgorithem/Data Structure & Algorithm/testdir/subdir3/subsubdir1/b.c',
-     '/Users/adhawal/my_experiments/Udacity/DataStructureNAlgorithem/Data Structure & Algorithm/testdir/t1.c',
-      '/Users/adhawal/my_experiments/Udacity/DataStructureNAlgorithem/Data Structure & Algorithm/testdir/subdir5/a.c',
-     '/Users/adhawal/my_experiments/Udacity/DataStructureNAlgorithem/Data Structure & Algorithm/testdir/subdir1/a.c']
-    """
+    # testcase2, invalid file path
+    file_path = "/Users/adhawal/my_experiments/Udacity/abcd"
+    results = find_files('.c', file_path)
+    print(results)
+    print("\n***********************************************\n")
+
+    # testcase3, filepath with no '.c' file
+    file_path = "/Users/adhawal/my_experiments/Udacity/DataStructureNAlgorithem/Data Structure & Algorithm"
+    results = find_files('.c', file_path)
+    print(results)
+    print("\n***********************************************\n")

@@ -94,8 +94,8 @@ class DoublyLinkedListNode:
 if __name__ == "__main__":
     maxsize = 5
 
+    # testcase 1
     our_cache = LRUCache(maxsize)
-
     our_cache.insertKeyValuePair(1, 1)
     our_cache.insertKeyValuePair(2, 2)
     our_cache.insertKeyValuePair(3, 3)
@@ -113,4 +113,31 @@ if __name__ == "__main__":
 
     # returns -1 because 3 is not present in the cache, was removed which was the least recent key
     print(our_cache.getValueFromKey(3))
+    print("\n***********************************************\n")
 
+    # testcase 2, retrieving the same value again and again
+    our_cache = LRUCache(maxsize)
+    our_cache.insertKeyValuePair(1, 1)
+    our_cache.insertKeyValuePair(2, 2)
+    our_cache.insertKeyValuePair(3, 3)
+    our_cache.insertKeyValuePair(4, 4)
+    our_cache.insertKeyValuePair(5, 5)
+    print(our_cache.getValueFromKey(3))
+    print(our_cache.getValueFromKey(3))
+    print(our_cache.getValueFromKey(3))
+    print(our_cache.getValueFromKey(3))
+    print(our_cache.getValueFromKey(3))
+    print("\n***********************************************\n")
+
+    # testcase 3, retrieving invalid values
+    our_cache = LRUCache(maxsize)
+    our_cache.insertKeyValuePair(1, 1)
+    our_cache.insertKeyValuePair(2, 2)
+    our_cache.insertKeyValuePair(3, 3)
+    our_cache.insertKeyValuePair(4, 4)
+    our_cache.insertKeyValuePair(5, 5)
+    print(our_cache.getValueFromKey(55))
+    print(our_cache.getValueFromKey(60))
+    print(our_cache.getValueFromKey(30))
+    print(our_cache.getValueFromKey(31))
+    print(our_cache.getValueFromKey(35))

@@ -48,6 +48,7 @@ def create_BlockChain(block_list):
 
 
 if __name__ == "__main__":
+    # test case 1
     now = datetime.now()
     timestamp = datetime.timestamp(now)
 
@@ -72,5 +73,48 @@ if __name__ == "__main__":
         print(f"data of the block :'{block.data}' has a hash value of {block.hash} \
         and a previous hash - {block.previous_hash}")
         block = block.next
+    print("\n***********************************************\n")
+    # testcase 2, blockchain with empty block data
+    now = datetime.now()
+    timestamp = datetime.timestamp(now)
+    # creating block with no data
+    block4 = Block(timestamp, "")
 
+    now = datetime.now()
+    timestamp = datetime.timestamp(now)
 
+    block5 = Block(timestamp, "my block5", block4.hash)
+
+    now = datetime.now()
+    timestamp = datetime.timestamp(now)
+
+    block6 = Block(timestamp, "my block6", block5.hash)
+    chain = list()
+    chain.append((block4.timestamp, block4.data, None))
+    chain.append((block5.timestamp, block5.data, block5.previous_hash))
+    chain.append((block6.timestamp, block6.data, block6.previous_hash))
+
+    block = create_BlockChain(chain)
+    while block is not None:
+        print(f"data of the block :'{block.data}' has a hash value of {block.hash} \
+            and a previous hash - {block.previous_hash}")
+        block = block.next
+
+    print("\n***********************************************\n")
+    # testcase 3, blockchain with same timestamp
+    now = datetime.now()
+    timestamp = datetime.timestamp(now)
+    # creating block with no data
+    block7 = Block(timestamp, "my block7")
+    block8 = Block(timestamp, "my block8", block7.hash)
+    block9 = Block(timestamp, "my block9", block8.hash)
+    chain = list()
+    chain.append((block7.timestamp, block7.data, None))
+    chain.append((block8.timestamp, block8.data, block8.previous_hash))
+    chain.append((block9.timestamp, block9.data, block9.previous_hash))
+
+    block = create_BlockChain(chain)
+    while block is not None:
+        print(f"data of the block :'{block.data}' has a hash value of {block.hash} \
+                and a previous hash - {block.previous_hash}")
+        block = block.next
